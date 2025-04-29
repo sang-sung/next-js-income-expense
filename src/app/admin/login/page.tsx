@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Login() {
+export default function AdminLogin() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       const res = await apiService.post({
-        url: "/api/login",
+        url: "/api/admin/login",
         body: { user, password },
       });
 
@@ -30,7 +30,7 @@ export default function Login() {
         localStorage.setItem("token", data.token);
         toast.success(data.message);
         setTimeout(() => {
-          router.push("/user/dashboard");
+          router.push("/admin/users");
         }, 1500);
       } else {
         toast.error(data.message || "Login failed");
@@ -45,7 +45,7 @@ export default function Login() {
   return (
     <div className="min-w-screen min-h-screen flex justify-center items-center select-none">
       <div className="w-[90vw] max-w-[500px] min-h-[80vh] py-20 px-5 bg-gray-600 rounded-2xl flex flex-col items-center justify-center">
-        <p className="mb-16 text-4xl font-semibold">Login</p>
+        <p className="mb-16 text-4xl font-semibold">Admin Login</p>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center gap-y-5 w-full"
