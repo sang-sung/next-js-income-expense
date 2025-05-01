@@ -134,18 +134,10 @@ export default function Data() {
                 </td>
                 <td className="border px-4 py-2">{item.desc}</td>
                 <td className="border px-4 py-2 text-end">
-                  {item.type == 1 &&
-                    Number(item.amount).toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                  {item.type == 1 && functionService.formatAmount(item.amount)}
                 </td>
                 <td className="border px-4 py-2 text-end">
-                  {item.type == 2 &&
-                    Number(item.amount).toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                  {item.type == 2 && functionService.formatAmount(item.amount)}
                 </td>
                 <td className="border px-4 py-2">
                   <div className="flex gap-2 flex-wrap">

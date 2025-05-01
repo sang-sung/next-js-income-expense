@@ -19,6 +19,13 @@ const functionService = {
 
     return isTooShort || isNotEnglish;
   },
+
+  formatAmount(amount: number | string) {
+    return Number(amount).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  },
 };
 
 export default functionService;

@@ -2,6 +2,7 @@ import { menuBarType } from "@/types/menuBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
+import ToggleTheame from "./ToggleTheame";
 
 type HeaderType = {
   menuBar: menuBarType[];
@@ -9,7 +10,9 @@ type HeaderType = {
 
 export default function Header({ menuBar = [] }: HeaderType) {
   return (
-    <div className="p-5 flex flex-col items-center border-b-2 border-gray-600">
+    <div className="p-5 flex flex-col items-center border-b-2 border-gray-600 relative">
+      <ToggleTheame />
+
       <p className="text-3xl text-center">
         เว็บบันทึกรายรับรายจ่ายของ <strong>sang-sung</strong>
       </p>

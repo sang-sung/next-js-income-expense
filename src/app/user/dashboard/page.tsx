@@ -5,6 +5,7 @@ import SecChart from "./secChart";
 import { CategoryType } from "@/types/category";
 import { transactionsType } from "@/types/transactions";
 import apiService from "@/services/apiService";
+import SecCate from "./secCate";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ export default function Dashboard() {
 
     const datasetsInEx = [
       { name: "รายรับ", type: 1, color: "#4CAF50" }, //#2196F3 #4CAF50
-      { name: "รายจ่าย", type: 2, color: "#F44336" },//#FF9800 #F44336
+      { name: "รายจ่าย", type: 2, color: "#F44336" }, //#FF9800 #F44336
     ].map((type) => {
       // รวมยอดตามวันที่
       const sumsByDate: Record<string, number> = {};
@@ -83,7 +84,7 @@ export default function Dashboard() {
       labels: labels,
       datasets: datasetsCate,
     };
-    console.log(chartDataCate);
+    // console.log(chartDataCate);
 
     setData(chartDataInEx);
     setdataCate(chartDataCate);
@@ -159,9 +160,26 @@ export default function Dashboard() {
   };
   return (
     <div className="p-5">
-      {data && <SecChart data={data} />}
-      <div className="h-5"></div>
-      {dataCate && <SecChart data={dataCate} />}
+      {loading ? (
+        <p>กำลังโหลด...</p>
+      ) : transactions.length === 0 ? (
+        <p>ไม่มีข้อมูล</p>
+      ) : (
+        <>
+          {data && (
+            <>
+              <div className="mb-5">
+                <p className="text-3xl font-bold">แบ่งตามรายรับ - รายจ่าย</p>
+              </div>
+              <SecChart data={data} />
+            </>
+          )}
+          <div className="h-5"></div>
+          {transactions.length > 0 && categories.length > 0 && (
+            <SecCate data={transactions} cateAll={categories} />
+          )}
+        </>
+      )}
     </div>
   );
 }

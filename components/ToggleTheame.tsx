@@ -38,7 +38,7 @@ export default function ToggleTheme() {
 
   return (
     <button
-      className={`fixed flex justify-center items-center w-10 h-10 top-5 right-5 rounded-full
+      className={`absolute flex justify-center items-center w-10 h-10 top-5 right-5 rounded-full
         text-white bg-gray-600`}
       onClick={toggleClick}
     >
