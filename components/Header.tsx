@@ -19,7 +19,7 @@ export default function Header({ menuBar = [] }: HeaderType) {
             <Link
               key={i}
               href={item.link}
-              className="border-b-2 border-transparent hover:border-gray-50 duration-300 px-2"
+              className="border-b-2 border-transparent hover:border-[var(--foreground)] duration-300 px-2"
             >
               <FontAwesomeIcon icon={item.icon} /> {item.name}
             </Link>

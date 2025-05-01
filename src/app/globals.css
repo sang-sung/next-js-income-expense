@@ -34,3 +34,8 @@ body {
   border-radius: 10px;
   width: 100%;
 }
+.input-style:read-only {
+  background-color: #9a9a9a;
+  color: #3d3d3d;
+  cursor: not-allowed;
+}

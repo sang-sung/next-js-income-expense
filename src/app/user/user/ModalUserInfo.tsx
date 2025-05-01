@@ -2,7 +2,7 @@
 
 import { Modal } from "@/components/Modal";
 import { SwalAlert, toast } from "@/components/SweetAlert";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 import { useEffect, useState } from "react";
 import { validateUserInfo } from "@/lib/validates/validateUserInfo";
 
@@ -94,7 +94,7 @@ export default function ModalUserInfo({
         fname: form.fname,
         lname: form.lname,
         age: form.age != "" ? parseInt(form.age) : null,
-        sex: form.sex,
+        sex: form.sex.toString(),
         address: form.address,
       };
 

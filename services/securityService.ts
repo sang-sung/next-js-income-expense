@@ -5,7 +5,7 @@ const encryptSecretKey: CryptoJS.lib.WordArray = CryptoJS.enc.Utf8.parse(
 );
 const ivKey = process.env.IV_KEY!;
 
-export function encryptData(data: string): string | false {
+export function encryptData(data: string): string | null {
   const iv: CryptoJS.lib.WordArray = CryptoJS.enc.Utf8.parse(ivKey);
   try {
     const encrypted = CryptoJS.AES.encrypt(
@@ -21,11 +21,11 @@ export function encryptData(data: string): string | false {
     return encrypted.toString();
   } catch (e) {
     console.error("Encryption error:", e);
-    return false;
+    return null;
   }
 }
 
-export function decryptData(encryptedData: string): string | false {
+export function decryptData(encryptedData: string): string | null {
   const iv: CryptoJS.lib.WordArray = CryptoJS.enc.Utf8.parse(ivKey);
   try {
     const decrypted = CryptoJS.AES.decrypt(encryptedData, encryptSecretKey, {
@@ -35,9 +35,9 @@ export function decryptData(encryptedData: string): string | false {
       padding: CryptoJS.pad.Pkcs7,
     });
     const decryptedData = CryptoJS.enc.Utf8.stringify(decrypted);
-    return decryptedData || false;
+    return decryptedData || null;
   } catch (e) {
     console.error("Decryption error:", e);
-    return false;
+    return null;
   }
 }

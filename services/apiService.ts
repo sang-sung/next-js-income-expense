@@ -18,7 +18,10 @@ const handleUnauthorized = async (res: Response) => {
   if (res.status === 401) {
     try {
       const data = await res.clone().json(); // ใช้ .clone() เพราะ response ถูกอ่านได้ครั้งเดียว
-      if (data.message === "Expired token") {
+      if (
+        data.message === "Expired token" ||
+        data.message === "Invalid or expired admin token"
+      ) {
         if (typeof window !== "undefined") {
           const result = await SwalAlert.error({
             title: "แจ้งเตือน",

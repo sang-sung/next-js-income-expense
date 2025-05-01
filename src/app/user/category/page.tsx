@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ModalCategory from "./modalCategory";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 import { CategoryType } from "@/types/category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +13,7 @@ import {
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "@/components/SweetAlert";
-import functionService from "@/service/functionService";
+import functionService from "@/services/functionService";
 import "./category.css";
 
 export default function Category() {
@@ -33,7 +33,7 @@ export default function Category() {
       const res = await apiService.get({ url: "/api/category" });
       const data = await res.json();
 
-      const categoryArr = JSON.parse(data.data[0].cate_name);
+      const categoryArr = JSON.parse(data.data.cate_name);
       setCategories(categoryArr);
     } catch (err) {
       console.error("Error fetching categories:", err);

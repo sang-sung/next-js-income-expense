@@ -1,7 +1,7 @@
 "use client"; // ถ้าใช้ Next.js App Router
 
 import { toast } from "@/components/SweetAlert";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";

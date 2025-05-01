@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SecChart from "./secChart";
 import { CategoryType } from "@/types/category";
 import { transactionsType } from "@/types/transactions";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -104,7 +104,7 @@ export default function Dashboard() {
     try {
       const res = await apiService.get({ url: "/api/category" });
       const data = await res.json();
-      const categoryArr: CategoryType[] = JSON.parse(data.data[0].cate_name);
+      const categoryArr: CategoryType[] = JSON.parse(data.data.cate_name);
       categoryArr.push({
         id: 0,
         name: "ไม่ระบุ",

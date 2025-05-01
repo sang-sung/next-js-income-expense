@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { decryptData } from "@/service/securityService";
+import { decryptData } from "@/services/securityService";
 
 export async function tokenMiddleware(req: NextRequest) {
   const token = req.headers.get("token")?.split(" ")[0];

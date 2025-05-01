@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import ModalTransaction from "./ModalTransaction";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 import { transactionsType } from "@/types/transactions";
 import { CategoryType } from "@/types/category";
-import functionService from "@/service/functionService";
+import functionService from "@/services/functionService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
@@ -37,7 +37,7 @@ export default function Data() {
     try {
       const res = await apiService.get({ url: "/api/category" });
       const data = await res.json();
-      const categoryArr: CategoryType[] = JSON.parse(data.data[0].cate_name);
+      const categoryArr: CategoryType[] = JSON.parse(data.data.cate_name);
       setCategories(categoryArr);
       return categoryArr;
     } catch (err) {
@@ -133,11 +133,19 @@ export default function Data() {
                   {new Date(item.date).toLocaleDateString("th-TH")}
                 </td>
                 <td className="border px-4 py-2">{item.desc}</td>
-                <td className="border px-4 py-2">
-                  {item.type == 1 && item.amount}
+                <td className="border px-4 py-2 text-end">
+                  {item.type == 1 &&
+                    Number(item.amount).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                 </td>
-                <td className="border px-4 py-2">
-                  {item.type == 2 && item.amount}
+                <td className="border px-4 py-2 text-end">
+                  {item.type == 2 &&
+                    Number(item.amount).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                 </td>
                 <td className="border px-4 py-2">
                   <div className="flex gap-2 flex-wrap">

@@ -3,7 +3,7 @@
 import { Modal } from "@/components/Modal";
 import { SwalAlert, toast } from "@/components/SweetAlert";
 import { validateChangPass } from "@/lib/validates/validateChangPass";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";

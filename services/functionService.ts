@@ -12,6 +12,13 @@ const functionService = {
 
     return brightness > 128;
   },
+
+  validatePassword: (pass: string): boolean => {
+    const isTooShort = pass.length < 6;
+    const isNotEnglish = !/^[\x20-\x7E]+$/.test(pass);
+
+    return isTooShort || isNotEnglish;
+  },
 };
 
-export default functionService
+export default functionService;

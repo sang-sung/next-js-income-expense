@@ -1,4 +1,4 @@
-import { decryptData } from "@/service/securityService";
+import { decryptData } from "@/services/securityService";
 import { NextRequest } from "next/server";
 
 export function getUserFromToken(req: NextRequest) {

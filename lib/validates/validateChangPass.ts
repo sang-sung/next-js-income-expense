@@ -1,3 +1,5 @@
+import functionService from "@/services/functionService";
+
 export type ChangPassForm = {
   password_old: string;
   password_new: string;
@@ -11,8 +13,8 @@ export const validateChangPass = (form: ChangPassForm): string | null => {
     return "กรุณาระบุข้อมูลให้ครบ";
   }
 
-  if (password_new.length < 6) {
-    return "รหัสผ่านต้องมีความยาวตั้งแต่ 6 ตัวขึ้นไป";
+  if (functionService.validatePassword(password_new)) {
+    return "รหัสผ่านต้องเป็นภาษาอังกฤษและความยาว 6 ตัวขึ้นไป";
   }
 
   if (password_new !== password_confirm) {

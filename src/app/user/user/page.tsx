@@ -5,7 +5,7 @@ import ModalChangPass from "./modalChangPass";
 import { useEffect, useState } from "react";
 import { SwalAlert } from "@/components/SweetAlert";
 import ModalUserInfo from "./ModalUserInfo";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 
 type UserInfo = {
   fname?: string;
@@ -33,7 +33,7 @@ export default function User() {
       const res = await apiService.get({ url: "/api/userinfo" });
       const data = await res.json();
 
-      setdataUserInfo(data.data[0]);
+      setdataUserInfo(data.data);
     } catch (err) {
       console.error("Error fetching categories:", err);
     } finally {

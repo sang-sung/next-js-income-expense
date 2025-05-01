@@ -2,7 +2,7 @@
 
 import { Modal } from "@/components/Modal";
 import { SwalAlert, toast } from "@/components/SweetAlert";
-import apiService from "@/service/apiService";
+import apiService from "@/services/apiService";
 import { CategoryType } from "@/types/category";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

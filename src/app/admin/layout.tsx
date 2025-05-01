@@ -1,7 +1,7 @@
 "use client";
 
 import LayoutWrapper from "@/components/LayoutWrapper";
-import { faGear, faUsersGear } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faUsersGear, faUserShield } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
 
 export default function AdminLayout({
@@ -13,6 +13,7 @@ export default function AdminLayout({
 
   const menuBar = [
     { name: "Users", link: "/admin/users", icon: faUsersGear },
+    { name: "Admin", link: "/admin/usersadmin", icon: faUserShield },
     { name: "Setting", link: "/admin/setting", icon: faGear },
   ];
 
