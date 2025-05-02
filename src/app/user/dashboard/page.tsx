@@ -6,6 +6,7 @@ import { CategoryType } from "@/types/category";
 import { transactionsType } from "@/types/transactions";
 import apiService from "@/services/apiService";
 import SecCate from "./secCate";
+import { monthLong } from "@/src/constants/date";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,24 @@ export default function Dashboard() {
   const [transactions, setTransactions] = useState<transactionsType[]>([]);
 
   const [data, setData] = useState<any>();
-  const [dataCate, setdataCate] = useState<any>();
+
+  const [filterDate, setFilterDate] = useState<{
+    year?: number;
+    month?: number;
+  }>({});
+  const options: { year: number; month: number }[] = [];
+  const currentDate = new Date();
+  for (
+    let y = currentDate.getFullYear();
+    y >= currentDate.getFullYear() - 5;
+    y--
+  ) {
+    for (let m = 12; m >= 1; m--) {
+      if (y === currentDate.getFullYear() && m > currentDate.getMonth() + 1)
+        continue;
+      options.push({ year: y, month: m });
+    }
+  }
 
   useEffect(() => {
     loadCategoriesAndTransactions();
@@ -50,50 +68,27 @@ export default function Dashboard() {
       };
     });
 
-    const datasetsCate = categories.map((cat) => {
-      // เตรียม array สำหรับเก็บยอดของแต่ละวัน
-      const data = labels.map((labelDate) => {
-        // กรองเฉพาะรายการที่เป็นรายจ่ายในวันนั้น
-        const txsInDate = transactions.filter(
-          (tx) => tx.date === labelDate && tx.type === 2
-        );
-
-        // รวมยอดเฉพาะรายการที่มี category ตรงกับ cat.id
-        const total = txsInDate.reduce((sum, tx: any) => {
-          const hasCat = tx.cate.some((c: any) => c.id === cat.id);
-          return hasCat ? sum + parseFloat(tx.amount) : sum;
-        }, 0);
-
-        return total;
-      });
-
-      return {
-        label: cat.name,
-        backgroundColor: cat.color,
-        borderColor: "#fff",
-        borderWidth: 0.8,
-        data,
-      };
-    });
-
     const chartDataInEx = {
       labels: labels,
       datasets: datasetsInEx,
     };
-    const chartDataCate = {
-      labels: labels,
-      datasets: datasetsCate,
-    };
-    // console.log(chartDataCate);
 
     setData(chartDataInEx);
-    setdataCate(chartDataCate);
   }, [transactions]);
 
   const loadCategoriesAndTransactions = async () => {
     try {
+      const now = new Date();
+      setFilterDate({
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+      });
+
       const categoriesData = await fetchCategories();
-      const transactionsData = await fetchTransaction(categoriesData);
+      const transactionsData = await fetchTransaction(categoriesData, {
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+      });
     } catch (err) {
       console.error("Error loading data:", err);
     } finally {
@@ -103,7 +98,9 @@ export default function Dashboard() {
 
   const fetchCategories = async (): Promise<CategoryType[]> => {
     try {
-      const res = await apiService.get({ url: "/api/category" });
+      const res = await apiService.get({
+        url: "/api/category",
+      });
       const data = await res.json();
       const categoryArr: CategoryType[] = JSON.parse(data.data.cate_name);
       categoryArr.push({
@@ -120,10 +117,16 @@ export default function Dashboard() {
   };
 
   const fetchTransaction = async (
-    categoriesData: CategoryType[]
+    categoriesData: CategoryType[],
+    dateFilter?: { year?: number; month?: number }
   ): Promise<void> => {
     try {
-      const res = await apiService.get({ url: "/api/transaction" });
+      const year = dateFilter?.year ?? filterDate.year;
+      const month = dateFilter?.month ?? filterDate.month;
+
+      const res = await apiService.get({
+        url: "/api/transaction" + `?year=${year}&month=${month}`,
+      });
       const data = await res.json();
 
       const transArr = data.data.map((transaction: any) => {
@@ -160,6 +163,25 @@ export default function Dashboard() {
   };
   return (
     <div className="p-5">
+      <div className="mb-5">
+        <label className="mr-2 font-medium">เลือกเดือน/ปี</label>
+        <select
+          value={`${filterDate.year}-${filterDate.month}`}
+          onChange={(e) => {
+            const [year, month] = e.target.value.split("-").map(Number);
+            setFilterDate({ year, month });
+            fetchTransaction(categories, { year, month });
+          }}
+          className="border px-3 py-1 rounded bg-[#06402B] text-white"
+        >
+          {options.map(({ year, month }) => (
+            <option key={`${year}-${month}`} value={`${year}-${month}`}>
+              {monthLong[month - 1]} {year + 543}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {loading ? (
         <p>กำลังโหลด...</p>
       ) : transactions.length === 0 ? (

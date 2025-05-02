@@ -2,16 +2,17 @@ import { transactionsRepository } from "@/repositories/transactions.repository";
 import { returnErr } from "@/services/api/errorHandler";
 
 export const transactionsService = {
-  getAll: async (userId: number) => {
+  getAll: async (userId: number, body: any) => {
     try {
-      const rows = await transactionsRepository.getAllByUserId(userId);
+      const rows = await transactionsRepository.getAllByUserId(userId, body);
+      const total = await transactionsRepository.countByUserId(userId, body);
       //   const rowsWithLocalTime = rows.map((row: any) => ({
       //     ...row,
       //     date: new Date(row.date).toLocaleString("en-TH", {
       //       timeZone: "Asia/Bangkok",
       //     }),
       //   }));
-      return { success: true, data: rows, status: 200 };
+      return { success: true, data: rows, total, status: 200 };
     } catch (err) {
       return returnErr(err);
     }

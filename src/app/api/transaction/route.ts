@@ -7,7 +7,27 @@ export async function GET(req: NextRequest) {
   try {
     const user_id = getUserFromToken(req).userId;
 
-    const result = await transactionsService.getAll(user_id);
+    const searchParams = req.nextUrl.searchParams;
+
+    const body = {
+      page: searchParams.get("page")
+        ? parseInt(searchParams.get("page")!)
+        : undefined,
+      itemPerPage: searchParams.get("itemPerPage")
+        ? parseInt(searchParams.get("itemPerPage")!)
+        : undefined,
+      date: searchParams.get("date") ?? undefined,
+      startDate: searchParams.get("startDate") ?? undefined,
+      endDate: searchParams.get("endDate") ?? undefined,
+      month: searchParams.get("month")
+        ? parseInt(searchParams.get("month")!)
+        : undefined,
+      year: searchParams.get("year")
+        ? parseInt(searchParams.get("year")!)
+        : undefined,
+    };
+
+    const result = await transactionsService.getAll(user_id, body);
     const { status, ...bodyData } = result;
 
     return NextResponse.json(bodyData, { status });
