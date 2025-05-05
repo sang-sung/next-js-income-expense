@@ -39,3 +39,9 @@ body {
   color: #3d3d3d;
   cursor: not-allowed;
 }
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+.light input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.1);
+}

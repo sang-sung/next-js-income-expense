@@ -35,7 +35,7 @@ export function Modal({
 
   return (
     <div
-      className={`absolute top-0 left-0 z-40 w-screen min-h-[100svh] h-full bg-black/30 flex justify-center items-center ${
+      className={`fixed top-0 left-0 z-40 w-screen min-h-[100svh] h-full bg-black/30 flex justify-center items-center ${
         stateModal ? "" : "hidden"
       }`}
     >
