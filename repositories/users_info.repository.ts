@@ -7,7 +7,14 @@ export const userInfoRepository = {
     });
   },
 
-  create: async (userId: number, fname: string, lname: string, age: number, sex: string, address: string) => {
+  create: async (
+    userId: number,
+    fname: string,
+    lname: string,
+    age: number,
+    sex: string,
+    address: string
+  ) => {
     return await prisma.users_info.create({
       data: {
         user_id: userId,
@@ -20,7 +27,14 @@ export const userInfoRepository = {
     });
   },
 
-  update: async (userId: number, fname: string, lname: string, age: number, sex: string, address: string) => {
+  update: async (
+    userId: number,
+    fname: string,
+    lname: string,
+    age: number,
+    sex: string,
+    address: string
+  ) => {
     return await prisma.users_info.update({
       where: { user_id: userId },
       data: {
@@ -30,6 +44,12 @@ export const userInfoRepository = {
         sex,
         address,
       },
+    });
+  },
+
+  delete: async (userId: number) => {
+    return await prisma.users_info.delete({
+      where: { user_id: userId },
     });
   },
 };

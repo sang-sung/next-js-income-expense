@@ -129,4 +129,8 @@ export const transactionsRepository = {
   delete: async (id: number) => {
     return prisma.transactions.delete({ where: { id } });
   },
+
+  deleteByUserId: async (user_id: number) => {
+    return prisma.transactions.deleteMany({ where: { user_id } });
+  },
 };

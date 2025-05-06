@@ -29,7 +29,7 @@ export default function Data() {
   const [startDate, setStartDate] = useState(firstDay);
   const [endDate, setEndDate] = useState(lastDay);
 
-  const [postPerPage, setPostPerPage] = useState<number>(5);
+  const [postPerPage, setPostPerPage] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPosts, setTotalPosts] = useState<number>(0);
 

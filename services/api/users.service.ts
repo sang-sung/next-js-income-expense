@@ -3,6 +3,9 @@ import { encryptData } from "@/services/securityService";
 import { getUserFromToken } from "@/services/api/getUserFromToken";
 import { returnErr } from "@/services/api/errorHandler";
 import { NextRequest } from "next/server";
+import { CategoriesRepository } from "@/repositories/categories.repository";
+import { transactionsRepository } from "@/repositories/transactions.repository";
+import { userInfoRepository } from "@/repositories/users_info.repository";
 
 export const getAllUsers = async () => ({
   success: true,
@@ -58,6 +61,9 @@ export const deleteUser = async (body: any) => {
       return { success: false, message: "ไม่พบ user " + user, status: 404 };
 
     await UsersRepository.deleteByUser(user);
+    await CategoriesRepository.deleteByUserId(existing.user_id);
+    await transactionsRepository.deleteByUserId(existing.user_id);
+    await userInfoRepository.delete(existing.user_id);
     return {
       success: true,
       message: "ลบ user " + user + " สำเร็จ",

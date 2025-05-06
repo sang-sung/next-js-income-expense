@@ -19,4 +19,10 @@ export const CategoriesRepository = {
       data: { user_id, cate_name },
     });
   },
+
+  deleteByUserId: (user_id: number) => {
+    return prisma.categories.delete({
+      where: { user_id },
+    });
+  },
 };
