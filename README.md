@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# วิธีการใช้งาน
 
-## Getting Started
-
-First, run the development server:
-
+## 1. Clone โปรเจกต์จาก GitHub
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/sang-sung/next-js-income-expense.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. ติดตั้งแพ็กเกจที่จำเป็น
+```bash
+cd next-js-income-expense
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 3. เพิ่มไฟล์ .env ในโปรเจกต์
+สร้างไฟล์ .env โดยคัดลอกจาก .env.example แล้วแก้ไขค่าต่าง ๆ ให้ถูกต้อง
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 4. สร้าง Database และ Migration
+รันคำสั่ง
+```bash
+npm run prisma:migrate
+```
 
-## Learn More
+## 5. รัน server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 6. เข้าสู่ระบบผู้ดูแลระบบ
+เปิดเบราว์เซอร์แล้วเข้าไปที่:
+http://localhost:3000/admin/login
+- Username: admin
+- Password: (ไม่ต้องกรอกอะไร)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 7. เพิ่มผู้ใช้งานใหม่
+หลังจากเข้าสู่ระบบสำเร็จ ให้ไปที่เมนู admin
+เพิ่มผู้ใช้ใหม่โดยกำหนด user และ password ที่ต้องการ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 8. ลบผู้ใช้งาน admin ออก
+เพื่อความปลอดภัยของระบบ แนะนำให้ลบผู้ใช้งาน admin ออกหลังจากเพิ่มผู้ใช้งานจริงเรียบร้อยแล้ว
