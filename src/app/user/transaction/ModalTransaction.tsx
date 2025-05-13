@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import functionService from "@/services/functionService";
 import { validateTransaction } from "@/lib/validates/validateTransaction";
+import "./transaction.css";
 
 type ModalTransaction = {
   showModal: boolean;
@@ -196,7 +197,7 @@ export default function ModalTransaction({
       setStateModal={setShowModal}
       closeOutArea={false}
     >
-      <div className="flex flex-col items-center py-10 w-full max-w-[500px] select-none">
+      <div className="flex flex-col items-center py-10 w-full max-w-[500px] select-none calen-black">
         <p className="text-2xl font-medium">
           {type == "update" ? "แก้ไขรายการ" : "เพิ่มรายการ"}
         </p>

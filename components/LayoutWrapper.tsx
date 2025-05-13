@@ -15,7 +15,7 @@ export default function LayoutWrapper({
   const isLoginPage = pathname === "/";
 
   return (
-    <div className="">
+    <div className="pb-5">
       {!isLoginPage && <Header menuBar={menuBar} />}
       <main>{children}</main>
     </div>

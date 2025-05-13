@@ -152,7 +152,7 @@ export default function Category() {
                 onDragStart={() => handleDragStart(index)}
                 onDragEnter={() => handleDragEnter(index)}
                 onDragEnd={handleDragEnd}
-                className={`hover:bg-[var(--bg-hover-row)] ${
+                className={`hover:bg-[var(--bg-hover-row)] cursor-move ${
                   dragIndex === index ? "bg-[var(--bg-on-drag)]" : ""
                 }`}
               >
